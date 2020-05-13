@@ -14,7 +14,7 @@ using System;
 
 namespace Necklace_Challenge
 {
-    class SameNecklace
+    class NecklaceMatcher
     {
         public static string Matcher(string necklace1, string necklace2)
         {
@@ -26,10 +26,26 @@ namespace Necklace_Challenge
                 //reorder the necklace 2 into the same order as necklace 1. then we can compare
                 if (necklace2[i] == necklace1[0])
                 {
+                    //here we split necklace2 into two parts. first part starts with the first letter of necklace 1 and goes to the end of necklace2
+                    //second part is whatever was before that letter. putting these two new strings together should make it the string same as necklace1
                     Console.WriteLine("found a matching letter");
                     string secondPart = necklace2.Substring(0, i);
                     string firstPart = necklace2.Substring(i);
-                    Console.WriteLine($"first part is: {firstPart}, second part is: {secondPart}");
+                    necklace2Reordered = firstPart + secondPart;
+                    Console.WriteLine($"first part is: {firstPart}, second part is: {secondPart}. Together that makes {necklace2Reordered}");
+
+                }
+            }
+            //now another for loop to compare necklace1 and necklace2Reordered
+            for(int i = 0; i < necklace1.Length; i++)
+            {
+                if(necklace1[i] != necklace2Reordered[i])
+                {
+                    result = "these are not the same necklace";
+                }
+                else
+                {
+                    result = $"these necklaces are the same! when rearranged. {necklace2} can be reordered to be {necklace2Reordered}";
                 }
             }
             return result;
@@ -53,8 +69,8 @@ namespace Necklace_Challenge
 
             try
             {
-                //we use the SameNecklace class here
-                result = SameNecklace.Matcher(necklace1, necklace2);
+                //we use the NecklaceMatcher class here
+                result = NecklaceMatcher.Matcher(necklace1, necklace2);
                 Console.WriteLine(result);
             }
             catch (Exception e)
